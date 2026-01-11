@@ -147,15 +147,18 @@ class HBNBCommand(cmd.Cmd):
                 ==> Usage: $ show BaseModel 1234-1234-1234.
         """
         args = parse(argv)
-        if args:
-            if len(args) != 2:
-                print("** instance id missing **")
+        if not args:
+            print("** class name missing **")
+        elif len(args) == 1:
+            print("** instance id missing **")
+        elif args[0] not in CLASSES:
+            print("** class doesn't exist **")
+        else:
+            key = "{}.{}".format(args[0], args[1])
+            if key in self.storage.all():
+                print(self.storage.all()[key])
             else:
-                key = "{}.{}".format(args[0], args[1])
-                if key in self.storage.all():
-                    print(self.storage.all()[key])
-                else:
-                    print("** no instance found **")
+                print("** no instance found **")
 
     def do_all(self, argv):
         """_summary_
@@ -168,7 +171,7 @@ class HBNBCommand(cmd.Cmd):
         args = split(argv)
         objects = self.storage.all().values()
         if len(args) == 0:
-            print(str(obj) for obj in objects)
+            print([str(obj) for obj in objects])
         else:
             if args[0] not in CLASSES:
                 print("** class doesn't exist **")
