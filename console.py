@@ -28,13 +28,14 @@ CLASSES = [
     "Review"
 ]
 
+
 def parse(arg):
     curly_braces = re.search(r'\{(.*?)\}', arg)
     square_brackets = re.search(r'\[(.*?)\]', arg)
 
     if curly_braces is None:
         if square_brackets is None:
-            #return [x.strip(",") for x in arg.split()]
+            # return [x.strip(",") for x in arg.split()]
             return [x.strip(",") for x in split(arg)]
         else:
             before_square_brackets = split(arg[0:square_brackets.span()[0]])
@@ -115,14 +116,13 @@ class HBNBCommand(cmd.Cmd):
         """
         print()
         return True
-    
+
     def do_quit(self, exiargvt):
         """_summary_
             Quits the program with a new line.
                 ==> Any method that returns true quits the program.
         """
         return True
-    
 
     def do_create(self, argv):
         """_summary_
@@ -137,11 +137,11 @@ class HBNBCommand(cmd.Cmd):
         if val_args:
             print(eval(val_args[0])().id)
             self.storage.save()
-        
-    
+
     def do_show(self, argv):
         """_summary_
-            Prints the string representation of an instance based on the class name and id. 
+            Prints the string representation of an instance based on
+            the class name and id.
                 ==> Usage: $ show BaseModel 1234-1234-1234.
         """
         args = parse(argv)
@@ -157,7 +157,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, argv):
         """_summary_
-            Prints all string representation of all instances based or not on the class name. 
+            Prints all string representation of all instances based or
+            not on the class name.
                 ==> Usage: $ all BaseModel or $ all
             Args:
                 argv: class_name
@@ -174,7 +175,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, argv):
         """_summary_
-            Deletes an instance based on the class name and id (save the change into the JSON file). 
+            Deletes an instance based on the class name and id (save
+            the change into the JSON file).
                 ==> Usage: $ destroy BaseModel 1234-1234-1234
 
         Args:
@@ -202,14 +204,15 @@ class HBNBCommand(cmd.Cmd):
         else:
             os.system('cls')
 
-
     def do_update(self, argv):
         """_summary_
             This command updates an instance based on its class and id
                 ==> __syntax__
-                    Usage: $ update <class name> <id> <attribute name> "<attribute value>"
+                    Usage: $ update <class name> <id> <attribute name>
+                    "<attribute value>"
                         __Example__:
-                        update BaseModel 1234-1234-1234 email "aibnb@mail.com"
+                        update BaseModel 1234-1234-1234 email
+                        "aibnb@mail.com"
         Args:
             argv : Update to be made
         """
@@ -234,11 +237,11 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     print("** no instance found **")
             self.storage.save()
-        
+
     def do_count(self, arg):
         """_summary_
                 Retrieves the number of instances of a specific class
-                usage: 
+                usage:
         """
         model_class = parse(arg)
         count = 0
@@ -246,8 +249,6 @@ class HBNBCommand(cmd.Cmd):
             if model_class[0] == type(instance).__name__:
                 count += 1
         print(count)
-
-
 
 
 if __name__ == '__main__':

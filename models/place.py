@@ -1,12 +1,14 @@
 #!/usr/bin/python3
 """_summary
-   This module creates new instances of the Place class -- This is visible in the frontend of this project
+   This module creates new instances of the Place class -- This is
+   visible in the frontend of this project
 """
 
 from models.base_model import BaseModel
 
+
 class Place(BaseModel):
-    
+
     """_summary_
         Public class attributes:
         city_id: string - empty string: it will be the City.id
@@ -19,7 +21,8 @@ class Place(BaseModel):
         price_by_night: integer - 0
         latitude: float - 0.0
         longitude: float - 0.0
-        amenity_ids: list of string - empty list: it will be the list of Amenity.id lat
+        amenity_ids: list of string - empty list: it will be the
+        list of Amenity.id lat
     """
     city_id = ''
     user_id = ''
@@ -35,6 +38,7 @@ class Place(BaseModel):
 
     def __init__(self, *args, **kwargs):
         """_summary_
-            This constructor method inherits from the constructor method in BaseModel
+            This constructor method inherits from the constructor
+            method in BaseModel
         """
         super().__init__(*args, **kwargs)

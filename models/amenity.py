@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 """_summary_
-    This module creates new instances of the Amenity class -- This is visible in the frontend of this project
+    This module creates new instances of the Amenity class -- This
+    is visible in the frontend of this project
 """
 from models.base_model import BaseModel
+
 
 class Amenity(BaseModel):
     """_summary_
@@ -13,6 +15,7 @@ class Amenity(BaseModel):
 
     def __init__(self, *args, **kwargs):
         """_summary_
-            This constructor method inherits from the constructor method in BaseModel
+            This constructor method inherits from the constructor
+            method in BaseModel
         """
         super().__init__(*args, **kwargs)
