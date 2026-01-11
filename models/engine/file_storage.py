@@ -65,7 +65,7 @@ class FileStorage:
             new_dict = {}
             for key, value in self.__objects.items():
                 new_dict[key] = value.to_dict()
-            json.dump(new_dict, file, indent=2)
+            json.dump(new_dict, file)
 
     def reload(self):
         """_summary_
