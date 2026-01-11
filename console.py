@@ -77,6 +77,8 @@ class HBNBCommand(cmd.Cmd):
     """
     prompt = "(hbnb)"
     storage = models.storage
+    ERROR_CLASS_NAME = "** class name missing **"
+    ERROR_CLASS = "** class doesn't exist **"
 
     def emptyline(self):
         """_summary_

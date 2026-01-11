@@ -74,7 +74,7 @@ class TestBaseModel_save(unittest.TestCase):
                 self.assertLess(updated1, update2)
                 sleep(0.05)
                 mod.save()
-                self.assertLess(update2, mod.update_at)
+                self.assertLess(update2, mod.updated_at)
 
 class TestBaseModel_to_dict(unittest.TestCase):
         """ unittests for to_dict method """

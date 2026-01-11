@@ -11,6 +11,11 @@ class TestPlace(unittest.TestCase):
 
     def setUp(self):
         self.place = Place()
+        self.attr_list = [
+            'city_id', 'user_id', 'name', 'description',
+            'number_rooms', 'number_bathrooms', 'max_guest',
+            'price_by_night', 'latitude', 'longitude', 'amenity_ids'
+        ]
     
     def test_creation(self):
         '''this test validate that creation proccess was correct.

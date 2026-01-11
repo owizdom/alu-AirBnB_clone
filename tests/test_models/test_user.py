@@ -18,7 +18,7 @@ class TestUser(unittest.TestCase):
         '''
 
         data = {'id': 3,
-                'fist_name': 'Ronald',
+                'first_name': 'Ronald',
                 'last_name': 'Abimbola',
                 'password': '@b1mb0l@_RD',
                 'email': 'r.abimbola@alustudent.com',
@@ -27,7 +27,7 @@ class TestUser(unittest.TestCase):
         self.user = User(**data)
         self.assertEqual(self.user.id, 3)
         self.assertEqual(self.user.first_name, 'Ronald')
-        self.assertEqual(self.user.first_name, 'Abimbola')
+        self.assertEqual(self.user.last_name, 'Abimbola')
         self.assertEqual(self.user.password, '@b1mb0l@_RD')
         self.assertEqual(self.user.email, 'r.abimbola@alustudent.com')
 

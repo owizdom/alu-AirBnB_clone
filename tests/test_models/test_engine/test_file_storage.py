@@ -4,7 +4,7 @@
 """
 from models.engine.file_storage import FileStorage
 import unittest
-from models.engine.file_storage import BaseModel
+from models.base_model import BaseModel
 
 
 class TestFileStorage(unittest.TestCase):
