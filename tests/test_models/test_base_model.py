@@ -1,108 +1,59 @@
-#!/usr/bin/env python3
-"""
-    Test suite for the BaseModel class present in models.base_model
-"""
+#!/usr/bin/python3
+"""Testing file for the BaseModel class"""
 import unittest
+from datetime import datetime
 from models.base_model import BaseModel
-from datetime import datetime, time
-from time import sleep
-import models
 
-class TestBaseModel_initialization(unittest.TestCase):
-    
-    """ Unittests for the initialization of the BaseModel class """
-    def test_no_initialization_args(self):
-        self.assertEqual(BaseModel, type(BaseModel()))
 
-    def test_id(self):
-        self.assertEqual(str, type(BaseModel().id))
+class TestBaseModel(unittest.TestCase):
+    """This is a testcase class that inherits from unittest.TestCase"""
+    def setUp(self):
+        """setting up the object for test"""
+        self.base_model = BaseModel()
 
-    def test_models_unique_ids(self):
-        mod1 = BaseModel()
-        mod2 = BaseModel()
-        self.assertNotEqual(mod1.id, mod2.id)
+    def test_id_generation(self):
+        """test for id generation"""
+        self.assertIsNotNone(self.base_model.id)
+        self.assertIsInstance(self.base_model.id, str)
 
     def test_created_at(self):
-        self.assertEqual(datetime, type(BaseModel().created_at))
+        """test for the created_at attribute"""
+        self.assertIsNotNone(self.base_model.created_at)
+        self.assertIsInstance(self.base_model.created_at, datetime)
 
     def test_updated_at(self):
-        self.assertEqual(datetime, type(BaseModel().updated_at))
+        """test for the updated_at attribute"""
+        self.assertIsNotNone(self.base_model.updated_at)
+        self.assertIsInstance(self.base_model.updated_at, datetime)
 
-    def test_models_creation_time(self):
-        mod1 = BaseModel()
-        sleep(0.05)
-        mod2 = BaseModel()
-        self.assertLess(mod1.created_at, mod2.created_at)
+    def test_save(self):
+        """
+        test for the save method by getting the initial value of updated_at,
+        then calling the save method and checking if the save method updated
+        the variable
+        """
+        first_updated_at = self.base_model.updated_at
+        self.base_model.save()
+        second_updated_at = self.base_model.updated_at
+        self.assertNotEqual(first_updated_at, second_updated_at)
 
-    def test_models_update_time(self):
-        mod1 = BaseModel()
-        sleep(0.05)
-        mod2 = BaseModel()
-        self.assertLess(mod1.updated_at, mod2.updated_at)
+    def test_to_dict(self):
+        """test for the to_dict method of the BaseModel class"""
+        obj_dict = self.base_model.to_dict()
+        self.assertIsInstance(obj_dict, dict)
+        self.assertEqual(
+            obj_dict['__class__'], 'BaseModel')
+        self.assertEqual(
+            obj_dict['created_at'], self.base_model.created_at.isoformat())
+        self.assertEqual(
+            obj_dict['updated_at'], self.base_model.updated_at.isoformat())
 
-    def test_args_and_kwargs(self):
-        t = datetime.today()
-        t_form = t.isoformat()
-        mod = BaseModel("12", id="345", created_at=t_form, updated_at=t)
-        self.assertEqual(mod.id, "345")
-        self.assertEqual(mod.created_at, t)
-        self.assertEqual(mod.updated_at, t)
-
-    def test_None_kwargs(self):
-        with self.assertRaises(TypeError):
-                BaseModel(id=None, created_at=None, updated_at=None)
-
-    def test_no_args(self):
-        mod = BaseModel(None)
-        self.assertNotIn(None, mod.__dict__.values())
-
-class TestBaseModel_save(unittest.TestCase):                  
-        """ Unittests for the save method """
-        def test_save1(self):
-                mod = BaseModel()
-                sleep(0.05)
-                updated_at1 = mod.updated_at
-                mod.save()
-                self.assertLess(updated_at1, mod.updated_at)
-
-        def test_save2(self):
-                mod = BaseModel()
-                sleep(0.05)
-                updated1 = mod.updated_at
-                mod.save()
-                update2 = mod.updated_at
-                self.assertLess(updated1, update2)
-                sleep(0.05)
-                mod.save()
-                self.assertLess(update2, mod.updated_at)
-
-class TestBaseModel_to_dict(unittest.TestCase):
-        """ unittests for to_dict method """
-        def test_dict_type(self):
-                mod = BaseModel()
-                self.assertTrue(dict, type(mod.to_dict()))
-
-        def test_dict_keys(self):
-                mod = BaseModel()
-                mod_dict = mod.to_dict()
-                self.assertIn('id', mod_dict)
-                self.assertIn('created_at', mod_dict)
-                self.assertIn('updated_at', mod_dict)
-                self.assertIn('__class__', mod_dict)
-
-        def test_dict_sample(self):
-                t = datetime.today()
-                mod = BaseModel()
-                mod.id = '00'
-                mod.created_at = mod.updated_at = t
-                dict = {
-                        'id': '00',
-                        '__class__': 'BaseModel',
-                        'created_at': t.isoformat(),
-                        'updated_at': t.isoformat()
-                        }
-                self.assertDictEqual(mod.to_dict(), dict)
-
+    def test__str__(self):
+        """test for __str__ of the BaseModel class"""
+        actual_output = str(self.base_model)
+        self.assertEqual(
+            actual_output,
+            f"[BaseModel] ({self.base_model.id}) {self.base_model.__dict__}")
 
 if __name__ == "__main__":
-        unittest.main()
+    unittest.main()

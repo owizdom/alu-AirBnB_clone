@@ -40,10 +40,14 @@ class BaseModel:
             for key, value in kwargs.items():
                 if key != '__class__':
                     if key in ['created_at', 'updated_at']:
+                        if value is None:
+                            raise TypeError
                         if isinstance(value, str):
                             setattr(self, key, datetime.fromisoformat(value))
                         else:
                             setattr(self, key, value)
+                    elif key == 'id' and value is None:
+                        raise TypeError
                     else:
                         setattr(self, key, value)
 
