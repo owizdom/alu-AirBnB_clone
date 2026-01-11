@@ -57,7 +57,8 @@ class FileStorage:
 
     def save(self):
         """_summary_
-            This method serializes __objects to the JSON file (path: __file_path)
+            This method serializes __objects to the JSON file
+            (path: __file_path)
         """
         with open(self.__file_path, mode="w") as file:
             # json.dump(self.__objects, f, default=lambda obj: obj.to_dict())
